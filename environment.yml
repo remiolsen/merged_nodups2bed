@@ -1,0 +1,6 @@
+name: merged_nodups2bed
+channels:
+  - conda-forge
+dependencies:
+  - conda-forge::gawk=5.1.0
+  - conda-forge::parallel=v20220222
