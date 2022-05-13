@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-miniconda3
+FROM continuumio/miniconda3
 
 LABEL author="Remi-Andre Olsen" \
       description="merged_nodups2bed" \
@@ -8,5 +8,5 @@ COPY environment.yml /
 RUN conda env create -f /environment.yml && conda clean -a
 
 # Add source files to the container
-ADD merged_nodups2bed.sh /opt/conda/envs/merged_nodups2bed/bin/
+COPY merged_nodups2bed.sh /opt/conda/envs/merged_nodups2bed/bin/
 ENV PATH /opt/conda/envs/merged_nodups2bed/bin:$PATH
