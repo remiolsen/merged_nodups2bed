@@ -1,19 +1,27 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 -i <file> -o <bed_file>" 1>&2; exit 1; }
+usage() { echo "Usage: $0 -i <file> -o <bed_file> -r <read_length=150> -a <awk_threads=8> -s <sort_threads=8> -h" 1>&2; exit 1; }
+
+if [[ ${#} -eq 0 ]]; then
+   usage
+fi
+
+while getopts ":i:o:r:a:s:h" opt; do
+  case ${opt} in
+    i) infile=${OPTARG} ;;
+    o) outfile=${OPTARG} ;;
+    r) readlen=${OPTARG} ;;
+    a) awk_t=${OPTARG} ;;
+    s) sort_t=${OPTARG} ;;
+    h) usage ;;
+    *) usage ;;
+  esac
+done
 
 # Faking this for now. Don't know if it matters...
 readlen=150
 awk_t=8
 sort_t=8
-
-while getopts ":i:o:" opt; do
-  case ${opt} in
-    i) infile=${OPTARG} ;;
-    o) outfile=${OPTARG} ;;
-    *) usage;;
-  esac
-done
 
 ma=`awk '{print match($15, "/")}' $infile | head -n 1`
 
